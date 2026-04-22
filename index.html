@@ -73,11 +73,11 @@
         .status-footer { background: #1b4332; color: white; border-radius: 16px; padding: 12px; text-align: center; margin-top: 12px; }
         
         .vertical-chart-wrapper { overflow-x: auto; margin: 15px 0; -webkit-overflow-scrolling: touch; }
-        .vertical-chart-container { display: flex; align-items: flex-end; justify-content: flex-start; gap: 4px; min-width: 600px; height: 260px; padding-bottom: 10px; }
-        .vert-chart-item { flex: 0 0 55px; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
-        .vert-chart-bar { width: 28px; background: #C9943A; border-radius: 4px 4px 0 0; transition: height 0.3s; }
+        .vertical-chart-container { display: flex; align-items: flex-end; justify-content: flex-start; gap: 2px; min-width: 550px; height: 260px; padding-bottom: 10px; }
+        .vert-chart-item { flex: 0 0 48px; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+        .vert-chart-bar { width: 32px; background: #C9943A; border-radius: 4px 4px 0 0; transition: height 0.3s; }
         .vert-chart-value { font-size: 9px; font-weight: bold; margin-bottom: 4px; }
-        .vert-chart-label { font-size: 10px; font-weight: 600; margin-top: 6px; text-align: center; word-break: keep-all; }
+        .vert-chart-label { font-size: 9px; font-weight: 600; margin-top: 6px; text-align: center; word-break: keep-all; transform: rotate(-25deg); white-space: nowrap; }
         
         .member-statement { border: 1px solid #d4cfc2; border-radius: 20px; padding: 14px; margin-bottom: 14px; background: #fefcf8; }
         .member-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
@@ -152,12 +152,17 @@
 <div id="weightPopup" class="popup-modal"><div class="popup-content" id="weightPopupContent"></div></div>
 
 <script>
+    // ইউটিলিটি ফাংশন
     function toPoints(vori, ana, ruti, point) { return (vori * 960) + (ana * 60) + (ruti * 10) + point; }
+    
+    // স্বর্ণের লেনদেনের ডেটা
     const goldDealsRaw = [
         { date: "১৫ এপ্রিল ২০২৫", vori: 1, ana: 11, ruti: 4, point: 9, cost: 239300 },
         { date: "৪ সেপ্টেম্বর ২০২৫", vori: 0, ana: 2, ruti: 0, point: 0, cost: 19000 },
         { date: "১২ অক্টোবর ২০২৫", vori: 0, ana: 11, ruti: 2, point: 4, cost: 127700 }
     ];
+    
+    // মাসভিত্তিক শেয়ার জমার তথ্য
     const monthlyDetails = {
         "ফিরোজ": { "2023":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2024":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2025":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:1,জুন:0,জুলাই:0,আগস্ট:0,সেপ্ট:0,অক্টো:0,নভে:0,ডিসে:0}, "2026":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0} },
         "মেহেদী": { "2023":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2024":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:1,জুন:0,জুলাই:0,আগস্ট:0,সেপ্ট:0,অক্টো:0,নভে:0,ডিসে:0}, "2025":{}, "2026":{} },
@@ -172,6 +177,8 @@
         "নিজাম": { "2023":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0,মে:2,জুন:2,জুলাই:2,আগস্ট:2,সেপ্ট:2,অক্টো:2,নভে:2,ডিসে:2}, "2024":{জানু:2,ফেব্রু:2,মার্চ:2,এপ্রিল:2,মে:0,জুন:0,জুলাই:0,আগস্ট:0,সেপ্ট:0,অক্টো:0,নভে:0,ডিসে:0}, "2025":{}, "2026":{} },
         "রাজু": { "2023":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0,মে:2,জুন:2,জুলাই:2,আগস্ট:2,সেপ্ট:0,অক্টো:0,নভে:0,ডিসে:0}, "2024":{}, "2025":{}, "2026":{} }
     };
+    
+    // সদস্যদের তালিকা
     const membersRaw = [
         { name: "ফিরোজ", status: "leave", shares: 25 }, { name: "মেহেদী", status: "stay", shares: 13 },
         { name: "ইসমাইল", status: "leave", shares: 32 }, { name: "মোমিন", status: "stay", shares: 36 },
@@ -180,8 +187,11 @@
         { name: "মিরাজ", status: "stay", shares: 68 }, { name: "কাউসার হামিদি", status: "leave", shares: 29 },
         { name: "নিজাম", status: "stay", shares: 24 }, { name: "রাজু", status: "leave", shares: 8 }
     ];
-    const TOTAL_SHARES = 608; const COW_PROFIT = 5000;
+    
+    const TOTAL_SHARES = 608; 
+    const COW_PROFIT = 5000;
 
+    // স্বর্ণের লাভ গণনা
     function calculateGoldProfit(pricePerVori) {
         const pointValue = pricePerVori / 960;
         let total = 0;
@@ -194,6 +204,8 @@
         });
         return { details, totalGoldProfit: total, pointValue };
     }
+    
+    // সব ডেটা গণনা
     function computeAll(price) {
         const gold = calculateGoldProfit(price);
         const totalProfit = gold.totalGoldProfit + COW_PROFIT;
@@ -230,19 +242,24 @@
     }
 
     let currentData = null;
+    
+    // পপআপ ফাংশন
     function showExplanationPopup(price, data) {
         document.getElementById('popupCalcDemo').innerHTML = `<p><strong>বর্তমান ইনপুট অনুযায়ী গণনা:</strong></p><p>১ ভরি দাম: <span class="profit-text">${price.toLocaleString()}</span> টাকা</p><p>১ পয়েন্টের দাম = ${(price/960).toFixed(2)} টাকা</p><p><strong>লেনদেন ১:</strong> ১ ভরি ১১ আনা ৪ রতি ৯ পয়েন্ট = ১,৬৬৯ পয়েন্ট → বর্তমান মূল্য = ${data.goldDetails[0].currentValue.toFixed(2)} টাকা, লাভ = ${data.goldDetails[0].profit.toFixed(2)} টাকা</p><p><strong>লেনদেন ২:</strong> ২ আনা = ১২০ পয়েন্ট → বর্তমান মূল্য = ${data.goldDetails[1].currentValue.toFixed(2)} টাকা, লাভ = ${data.goldDetails[1].profit.toFixed(2)} টাকা</p><p><strong>লেনদেন ৩:</strong> ১১ আনা ২ রতি ৪ পয়েন্ট = ৬৮৪ পয়েন্ট → বর্তমান মূল্য = ${data.goldDetails[2].currentValue.toFixed(2)} টাকা, লাভ = ${data.goldDetails[2].profit.toFixed(2)} টাকা</p><p><strong>মোট স্বর্ণ লাভ = ${data.totalGoldProfit.toFixed(2)} টাকা</strong><br>গরু লাভ = ৫,০০০ টাকা<br><strong>মোট লাভ = ${data.totalProfit.toFixed(2)} টাকা</strong></p>`;
         document.getElementById('explanationPopup').style.display = 'flex';
     }
+    
     function showWeightPopup(deal) {
         const pts = toPoints(deal.vori, deal.ana, deal.ruti, deal.point);
         document.getElementById('weightPopupContent').innerHTML = `<h4><i class="fas fa-gem"></i> ওজন বিবরণী</h4><p><strong>তারিখ:</strong> ${deal.date}</p><p><strong>ওজন:</strong> ${deal.vori} ভরি ${deal.ana} আনা ${deal.ruti} রতি ${deal.point} পয়েন্ট</p><p><strong>পয়েন্ট গণনা:</strong><br>(${deal.vori}×৯৬০) + (${deal.ana}×৬০) + (${deal.ruti}×১০) + ${deal.point} = ${pts} পয়েন্ট</p><p><strong>মোট পয়েন্ট:</strong> ${pts}</p><button class="popup-close" onclick="closeWeightPopup()">বন্ধ করুন</button>`;
         document.getElementById('weightPopup').style.display = 'flex';
     }
+    
     function closePopup() { document.getElementById('explanationPopup').style.display = 'none'; }
     function closeWeightPopup() { document.getElementById('weightPopup').style.display = 'none'; }
     window.onclick = function(e) { if(e.target === document.getElementById('explanationPopup')) closePopup(); if(e.target === document.getElementById('weightPopup')) closeWeightPopup(); };
 
+    // ইতিহাস টেবিল
     function getHistoryTable(member) {
         const months = ['জানু','ফেব্রু','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্ট','অক্টো','নভে','ডিসে'];
         const years = ['2023', '2024', '2025', '2026'];
@@ -262,6 +279,8 @@
         tableHtml += `</tbody></table></div>`;
         return tableHtml;
     }
+    
+    // প্রিন্ট ফাংশন
     function printStatement(member) {
         const historyTable = getHistoryTable(member);
         const today = new Date();
@@ -270,6 +289,8 @@
         win.document.write(`<html><head><title>${member.name} - ফাইনাল স্টেটমেন্ট</title><style>body{font-family:'Baloo Da 2',sans-serif;padding:20px;background:white;}.stmt{max-width:900px;margin:auto;border:1px solid #ddd;padding:20px;border-radius:20px;}.header{text-align:center;margin-bottom:20px;}.footer{text-align:center;margin-top:20px;font-size:11px;color:#666;border-top:1px solid #ccc;padding-top:10px;}table{border-collapse:collapse;width:100%;margin:10px 0;}th,td{border:1px solid #ccc;padding:6px;text-align:center;}.print-date{text-align:right;font-size:11px;color:#555;margin-bottom:10px;}</style></head><body><div class="stmt"><div class="header"><h2>ই ফ্রেন্ডস এসোসিয়েশন</h2><p>মন্তলী রহমানিয়া ফাজিল ডিগ্রী মাদ্রাসা সংলগ্ন মাঠ, নাঙ্গলকোট, কুমিল্লা</p><p><strong>ফাইনাল স্টেটমেন্ট</strong></p></div><div class="print-date">প্রিন্ট তারিখ: ${formattedDate}</div><h3>নাম: ${member.name} | স্ট্যাটাস: ${member.status==='leave'?'যাচ্ছেন':'থাকছেন'}</h3><hr/><h3>মাসভিত্তিক শেয়ার জমার ইতিহাস (২০২৩-২০২৬)</h3>${historyTable}<h3>সারসংক্ষেপ</h3><p><strong>মোট শেয়ার:</strong> ${member.shares} টি</p><p><strong>মোট জমা:</strong> ${member.deposit.toLocaleString()} ৳</p><p><strong>লাভের অংশ:</strong> ${member.profitAmount.toFixed(2)} ৳</p><h2 style="color:#166534;">✅ সর্বমোট প্রাপ্য: ${member.totalReceivable.toLocaleString()} ৳</h2><div class="footer">ই ফ্রেন্ডস এসোসিয়েশন — স্বর্ণ ও গরু প্রকল্প বিতরণ<br/>মন্তলী রহমানিয়া ফাজিল ডিগ্রী মাদ্রাসা সংলগ্ন মাঠ, নাঙ্গলকোট, কুমিল্লা</div></div></body></html>`);
         win.document.close(); win.print();
     }
+    
+    // রেন্ডার ফাংশন
     function render() {
         const price = parseFloat(document.getElementById('goldPriceInput').value);
         if(isNaN(price)) return;
@@ -286,11 +307,27 @@
         };
         let sorted = getSorted(sortKey);
 
+        // গোল্ড টেবিল রো - সঠিকভাবে ফরম্যাট করা
+        const goldTableRows = data.goldDetails.map(g => {
+            const weightInVori = (g.points / 960).toFixed(4);
+            return `<tr>
+                <td style="text-align:left;">${g.date}</td>
+                <td style="text-align:left;">
+                    ${g.vori} ভরি ${g.ana} আনা ${g.ruti} রতি ${g.point} পয়েন্ট 
+                    <span class="info-icon" onclick="showWeightPopup({vori:${g.vori}, ana:${g.ana}, ruti:${g.ruti}, point:${g.point}, date:'${g.date}'})">🔍</span>
+                </td>
+                <td style="font-weight:bold;">${g.points}</td>
+                <td>${weightInVori}</td>
+                <td>${g.cost.toLocaleString()} ৳</td>
+                <td>${g.currentValue.toFixed(2).toLocaleString()} ৳</td>
+                <td class="${g.profit >= 0 ? 'profit-text' : 'loss-text'}">${g.profit.toFixed(2).toLocaleString()} ৳</td>
+            </tr>`;
+        }).join('');
+        
         const totalPoints = data.goldDetails.reduce((s,g)=>s+g.points,0);
         const totalWeightVori = data.goldDetails.reduce((s,g)=>s+g.weightVori,0);
         const totalCost = data.goldDetails.reduce((s,g)=>s+g.cost,0);
         const totalCurrent = data.goldDetails.reduce((s,g)=>s+g.currentValue,0);
-        const goldTableRows = data.goldDetails.map(g => `<tr><td style="text-align:left;">${g.date}</td><td style="text-align:left;">${g.vori} ভরি ${g.ana} আনা ${g.ruti} রতি ${g.point} পয়েন্ট <span class="info-icon" onclick="showWeightPopup({vori:${g.vori}, ana:${g.ana}, ruti:${g.ruti}, point:${g.point}, date:'${g.date}'})">🔍</span></td><td style="font-weight:bold;">${g.points}</td><td>${g.weightVori.toFixed(4)}</td><td>${g.cost.toLocaleString()} ৳</th><th class="no-color">${g.currentValue.toLocaleString()} ৳</th><td class="${g.profit >= 0 ? 'profit-text' : 'loss-text'}">${g.profit.toLocaleString()} ৳</th></tr>`).join('');
 
         const leavingMembers = data.leaving.list;
         const stayingMembers = data.staying.list;
@@ -326,7 +363,7 @@
         `;
 
         const tab1Html = `
-        <div class="card"><h2><i class="fas fa-gem"></i> স্বর্ণ প্রজেক্ট — বিস্তারিত হিসেব <button class="explanation-btn no-print" onclick="showExplanationPopup(${price}, currentData)"><i class="fas fa-info-circle"></i> হিসেব পদ্ধতি বুঝুন</button></h2><div class="table-wrapper"><table><thead><tr><th>তারিখ</th><th>ওজন (ভরি-আনা-রতি-পয়েন্ট)</th><th>পয়েন্ট</th><th>ওজন (ভরি)</th><th>ক্রয়মূল্য (৳)</th><th>বর্তমান মূল্য (৳)</th><th>লাভ/লোকসান (৳)</th></tr></thead><tbody>${goldTableRows}</tbody><tfoot><tr class="total-row"><td colspan="2">সর্বমোট</th><th>${totalPoints}</th><th>${totalWeightVori.toFixed(4)}</th><th>${totalCost.toLocaleString()} ৳</th><th>${totalCurrent.toLocaleString()} ৳</th><td class="profit-text">${data.totalGoldProfit.toLocaleString()} ৳</th></tr></tfoot></table></div><div style="margin-top:12px; background:#FEF5ED; padding:12px; border-radius:16px;"><i class="fas fa-cow"></i> <strong>গরু প্রজেক্ট লাভ:</strong> +${data.cowProfit.toLocaleString()} ৳ <br><i class="fas fa-chart-simple"></i> <strong>মোট লাভ = ${data.totalGoldProfit.toLocaleString()} + ${data.cowProfit} = ${data.totalProfit.toLocaleString()} ৳</strong><br><i class="fas fa-share-alt"></i> <strong>প্রতি শেয়ারে লাভ:</strong> ${data.profitPerShare.toFixed(2)} ৳</div></div>
+        <div class="card"><h2><i class="fas fa-gem"></i> স্বর্ণ প্রজেক্ট — বিস্তারিত হিসেব <button class="explanation-btn no-print" onclick="showExplanationPopup(${price}, currentData)"><i class="fas fa-info-circle"></i> হিসেব পদ্ধতি বুঝুন</button></h2><div class="table-wrapper"><table><thead><tr><th>তারিখ</th><th>ওজন (ভরি-আনা-রতি-পয়েন্ট)</th><th>পয়েন্ট</th><th>ওজন (ভরি)</th><th>ক্রয়মূল্য (৳)</th><th>বর্তমান মূল্য (৳)</th><th>লাভ/লোকসান (৳)</th></tr></thead><tbody>${goldTableRows}</tbody><tfoot><tr class="total-row"><td colspan="2">সর্বমোট</td><th>${totalPoints}</th><th>${totalWeightVori.toFixed(4)}</th><th>${totalCost.toLocaleString()} ৳</th><th>${totalCurrent.toFixed(2).toLocaleString()} ৳</th><td class="profit-text">${data.totalGoldProfit.toLocaleString()} ৳</td></tr></tfoot></table></div><div style="margin-top:12px; background:#FEF5ED; padding:12px; border-radius:16px;"><i class="fas fa-cow"></i> <strong>গরু প্রজেক্ট লাভ:</strong> +${data.cowProfit.toLocaleString()} ৳ <br><i class="fas fa-chart-simple"></i> <strong>মোট লাভ = ${data.totalGoldProfit.toLocaleString()} + ${data.cowProfit} = ${data.totalProfit.toLocaleString()} ৳</strong><br><i class="fas fa-share-alt"></i> <strong>প্রতি শেয়ারে লাভ:</strong> ${data.profitPerShare.toFixed(2)} ৳</div></div>
         <div class="card"><h2><i class="fas fa-users"></i> সদস্য তালিকা (১২ জন)</h2><div class="sort-buttons no-print"><button class="sort-btn" data-sort="name"><i class="fas fa-sort-alpha-down"></i> নাম</button><button class="sort-btn" data-sort="shares"><i class="fas fa-chart-pie"></i> শেয়ার</button><button class="sort-btn" data-sort="receivable"><i class="fas fa-taka"></i> প্রাপ্য</button></div><div class="table-wrapper"><table><thead><tr><th>#</th><th>নাম</th><th>শেয়ার</th><th>জমা (৳)</th><th>লাভ (৳)</th><th>সর্বমোট (৳)</th><th>স্ট্যাটাস</th></tr></thead><tbody id="tableBody"></tbody></table></div></div>
         <div class="card"><h2><i class="fas fa-chart-line"></i> বছরভিত্তিক টাকা সংগ্রহ (শেয়ার × ১০০০)</h2><div id="yearlyCollectionChart"></div></div>
         <div class="card"><h2><i class="fas fa-info-circle"></i> সদস্য স্ট্যাটাস ও ফাইনাল নিষ্পত্তি</h2><div class="status-split-container">${leavingTableHtml}${stayingTableHtml}</div><div class="status-footer"><strong><i class="fas fa-chart-line"></i> যাওয়ার পর সমিতিতে অবশিষ্ট টাকা:</strong> ${data.remainingAfterExit.toLocaleString()} ৳</div></div>
@@ -352,10 +389,11 @@
             const totalDeposit = sorted.reduce((s,m)=>s+m.deposit,0);
             const totalProfitAmount = sorted.reduce((s,m)=>s+m.profitAmount,0);
             const totalReceivableSum = sorted.reduce((s,m)=>s+m.totalReceivable,0);
-            document.getElementById('tableBody').innerHTML = sorted.map((m,i)=>`<tr style="background:${m.status==='leave'?'#FFF5F5':'#F0FDF4'}"><td>${i+1}<td style="text-align:left;">${m.name}</td><td>${m.shares}</td><td>${m.deposit.toLocaleString()}</td><td>${m.profitAmount.toFixed(2)}<td style="font-weight:800;">${m.totalReceivable.toLocaleString()}</td><td><span style="background:${m.status==='leave'?'#FEE2E2':'#DCFCE7'};padding:2px 12px;border-radius:20px;">${m.status==='leave'?'যাচ্ছেন':'থাকছেন'}</span></td></tr>`).join('') + `<tr class="total-row"><td colspan="2" style="text-align:left; font-weight:bold;">মোট</th><th>${totalShares}</th><th>${totalDeposit.toLocaleString()} ৳</th><th>${totalProfitAmount.toFixed(2)} ৳</th><td style="font-weight:bold;">${totalReceivableSum.toLocaleString()} ৳</th><th></th></tr>`;
+            document.getElementById('tableBody').innerHTML = sorted.map((m,i)=>`<tr style="background:${m.status==='leave'?'#FFF5F5':'#F0FDF4'}"><td>${i+1}<td style="text-align:left;">${m.name}</td><td>${m.shares}</td><td>${m.deposit.toLocaleString()}</td><td>${m.profitAmount.toFixed(2)}<td style="font-weight:800;">${m.totalReceivable.toLocaleString()}</td><td><span style="background:${m.status==='leave'?'#FEE2E2':'#DCFCE7'};padding:2px 12px;border-radius:20px;">${m.status==='leave'?'যাচ্ছেন':'থাকছেন'}</span></td></tr>`).join('') + `<tr class="total-row"><td colspan="2" style="text-align:left; font-weight:bold;">মোট</td><th>${totalShares}</th><th>${totalDeposit.toLocaleString()} ৳</th><th>${totalProfitAmount.toFixed(2)} ৳</th><td style="font-weight:bold;">${totalReceivableSum.toLocaleString()} ৳</td><th></th></tr>`;
             const maxYear = Math.max(...Object.values(data.yearlyCollection));
             document.getElementById('yearlyCollectionChart').innerHTML = `<div class="yearly-chart">${Object.entries(data.yearlyCollection).map(([y,val]) => `<div class="year-bar"><div class="year-bar-fill" style="height: ${(val/maxYear)*180}px;"></div><div class="year-label">${y}<br>${(val/1000).toFixed(0)}k</div></div>`).join('')}</div>`;
             const maxReceivable = Math.max(...membersList.map(m=>m.totalReceivable));
+            // বার চার্ট - গ্যাপ কম করা হয়েছে (gap: 2px, প্রতিটি বার 32px)
             document.getElementById('receivableChart').innerHTML = `<div class="vertical-chart-wrapper"><div class="vertical-chart-container">${membersList.map(m => `<div class="vert-chart-item"><div class="vert-chart-value">${(m.totalReceivable/1000).toFixed(0)}k</div><div class="vert-chart-bar" style="height: ${(m.totalReceivable/maxReceivable)*180}px;"></div><div class="vert-chart-label">${m.name}</div></div>`).join('')}</div></div>`;
             document.getElementById('collectionSummary').innerHTML = `<div class="stat-grid"><div class="stat-card"><div class="stat-label"><i class="fas fa-database"></i> মোট জমা</div><div class="stat-value">${data.totalDeposit.toLocaleString()} ৳</div></div><div class="stat-card"><div class="stat-label"><i class="fas fa-money-bill-wave"></i> মোট বিতরণ</div><div class="stat-value">${data.totalDistributable.toLocaleString()} ৳</div></div><div class="stat-card"><div class="stat-label"><i class="fas fa-chart-line"></i> নিট লাভ</div><div class="stat-value profit-text">${data.totalProfit.toLocaleString()} ৳</div></div></div>`;
             document.getElementById('statementsContainer').innerHTML = sorted.map(m=>{
@@ -371,6 +409,7 @@
         document.querySelectorAll('.sort-btn').forEach(btn=>{btn.addEventListener('click',(e)=>{const s=btn.getAttribute('data-sort'); if(s==='name'){sortKey='name';sortDir=sortDir==='asc'?'desc':'asc';}else if(s==='shares'){sortKey='shares';sortDir=sortDir==='asc'?'desc':'asc';}else if(s==='receivable'){sortKey='receivable';sortDir=sortDir==='asc'?'desc':'asc';}sorted=getSorted(sortKey);updateDynamicData();});});
         updateDynamicData();
     }
+    
     document.getElementById('updateBtn').addEventListener('click',()=>render());
     document.getElementById('goldPriceInput').addEventListener('change',()=>render());
     render();
