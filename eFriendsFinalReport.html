@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>ই ফ্রেন্ডস এসোসিয়েশন — ফাইনাল রিপোর্ট ২০২৬</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Baloo Da 2', sans-serif; background: #f0ede6; padding: 0; color: #1e2a2a; }
+        .container { max-width: 1200px; margin: 0 auto; background: #f0ede6; width: 100%; padding: 0 12px; }
+        @media (min-width: 768px) { .container { padding: 0 20px; } }
+        
+        .report-header { background: linear-gradient(135deg, #1B4332 0%, #2d6a4f 100%); color: white; padding: 24px 16px; text-align: center; border-radius: 0 0 30px 30px; margin-bottom: 24px; }
+        .report-header h1 { font-size: clamp(22px, 5vw, 32px); margin-bottom: 8px; }
+        .report-header h1 i { color: #C9943A; margin-right: 10px; }
+        .report-header .subtitle { font-size: clamp(11px, 3vw, 14px); opacity: 0.85; }
+        .report-header .address { font-size: clamp(10px, 2.5vw, 12px); opacity: 0.7; margin-top: 8px; word-break: break-word; }
+        .report-header .period { background: #C9943A; display: inline-block; padding: 4px 16px; border-radius: 40px; font-size: clamp(10px, 2.5vw, 12px); margin-top: 12px; }
+        
+        .report-footer { background: #1B4332; color: #ccc; text-align: center; padding: 16px; border-radius: 30px 30px 0 0; margin-top: 30px; font-size: clamp(10px, 2.5vw, 12px); }
+        .report-footer i { color: #C9943A; margin-right: 6px; }
+        
+        .card { background: white; border-radius: 24px; padding: 16px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        
+        .gold-input-area { 
+            background: #1b4332; 
+            border-radius: 60px; 
+            padding: 12px 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            flex-wrap: wrap; 
+            gap: 12px; 
+            margin-bottom: 20px; 
+        }
+        .gold-input-area label { color: #ffdfa5; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .gold-input-area label i { font-size: 18px; }
+        .gold-input-area input { font-family: inherit; font-size: 16px; font-weight: 800; padding: 10px 16px; border-radius: 50px; border: none; width: 160px; text-align: center; background: white; }
+        .gold-input-area button { background: #C9943A; border: none; color: white; font-weight: bold; padding: 10px 24px; border-radius: 50px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px; transition: background 0.2s; }
+        .gold-input-area button:hover { background: #b07d2a; }
+        @media (max-width: 550px) {
+            .gold-input-area { flex-direction: column; text-align: center; border-radius: 30px; }
+            .gold-input-area label { justify-content: center; }
+            .gold-input-area input { width: 100%; max-width: 200px; }
+            .gold-input-area button { width: 100%; max-width: 200px; justify-content: center; }
+        }
+        
+        h2 { font-size: clamp(18px, 4vw, 22px); border-left: 5px solid #1b4332; padding-left: 12px; margin: 8px 0 12px; }
+        h2 i { margin-right: 8px; color: #C9943A; }
+        h3 { font-size: clamp(14px, 3.5vw, 18px); margin: 10px 0 8px; }
+        .table-wrapper { overflow-x: auto; margin: 12px 0; border-radius: 16px; -webkit-overflow-scrolling: touch; }
+        table { width: 100%; border-collapse: collapse; font-size: clamp(10px, 2.8vw, 13px); min-width: 500px; }
+        th, td { padding: 10px 8px; text-align: center; border-bottom: 1px solid #e2ddd2; }
+        th { background: #1b4332; color: white; font-weight: 600; }
+        .profit-text { color: #166534; font-weight: 700; }
+        .loss-text { color: #991b1b; font-weight: 700; }
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 12px 0; }
+        .stat-card { background: #f9f7f2; border-radius: 20px; padding: 12px; text-align: center; }
+        .stat-label { font-size: clamp(10px, 2.5vw, 12px); color: #5b6e5b; }
+        .stat-value { font-size: clamp(14px, 4vw, 20px); font-weight: 800; }
+        
+        .status-split-container { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 16px; }
+        .status-table-box { flex: 1; min-width: 250px; background: #f9f7f2; border-radius: 20px; padding: 14px; }
+        .status-table-box h4 { margin-bottom: 12px; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+        .status-table-box table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: auto; }
+        .status-table-box th, .status-table-box td { padding: 6px 4px; text-align: left; border-bottom: 1px solid #ddd; }
+        .status-table-box th { background: none; color: #1b4332; font-weight: 700; }
+        .status-table-box .total-row-status { font-weight: bold; background: #e2ddd2; }
+        .status-leave-card { border-left: 5px solid #991b1b; background: #fff5f5; }
+        .status-stay-card { border-left: 5px solid #166534; background: #f0fdf4; }
+        .status-footer { background: #1b4332; color: white; border-radius: 16px; padding: 12px; text-align: center; margin-top: 12px; }
+        
+        .vertical-chart-wrapper { overflow-x: auto; margin: 15px 0; -webkit-overflow-scrolling: touch; }
+        .vertical-chart-container { display: flex; align-items: flex-end; justify-content: flex-start; gap: 4px; min-width: 600px; height: 260px; padding-bottom: 10px; }
+        .vert-chart-item { flex: 0 0 55px; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+        .vert-chart-bar { width: 28px; background: #C9943A; border-radius: 4px 4px 0 0; transition: height 0.3s; }
+        .vert-chart-value { font-size: 9px; font-weight: bold; margin-bottom: 4px; }
+        .vert-chart-label { font-size: 10px; font-weight: 600; margin-top: 6px; text-align: center; word-break: keep-all; }
+        
+        .member-statement { border: 1px solid #d4cfc2; border-radius: 20px; padding: 14px; margin-bottom: 14px; background: #fefcf8; }
+        .member-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+        .print-btn { background: #52796f; border: none; color: white; font-family: inherit; font-size: 11px; font-weight: bold; padding: 5px 14px; border-radius: 30px; cursor: pointer; }
+        .sort-buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+        .sort-btn { background: #e2ddd2; border: none; font-family: inherit; font-size: 12px; font-weight: 600; padding: 6px 16px; border-radius: 40px; cursor: pointer; }
+        .history-table { min-width: 420px; }
+        .history-table th, .history-table td { border: 1px solid #ddd; padding: 8px 5px; font-size: clamp(10px, 2.5vw, 12px); }
+        .history-table td.highlight { background-color: #a5d6a7 !important; font-weight: bold; }
+        .details-summary { cursor: pointer; font-size: 13px; font-weight: 600; color: #1b4332; margin: 10px 0 6px; display: inline-block; }
+        .explanation-btn { background: #C9943A; border: none; color: white; font-family: inherit; font-size: 12px; font-weight: bold; padding: 6px 14px; border-radius: 30px; cursor: pointer; margin-left: 12px; }
+        .popup-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; }
+        .popup-content { background: white; max-width: 450px; width: 90%; border-radius: 24px; padding: 20px; max-height: 80vh; overflow-y: auto; position: relative; }
+        .popup-content h4 { margin-bottom: 12px; color: #1b4332; }
+        .popup-content p { margin-bottom: 8px; font-size: 13px; line-height: 1.5; }
+        .popup-close { background: #1b4332; color: white; border: none; padding: 8px 20px; border-radius: 30px; cursor: pointer; margin-top: 12px; }
+        .info-icon { background: #e2ddd2; border-radius: 50%; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px; margin-left: 8px; }
+        .doc-links { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px; align-items: center; }
+        .doc-links a { text-decoration: none; background: #1b4332; color: white; padding: 6px 15px; border-radius: 40px; font-size: 12px; display: inline-flex; align-items: center; gap: 6px; }
+        .yearly-chart { display: flex; align-items: flex-end; justify-content: space-around; height: 260px; gap: 8px; flex-wrap: wrap; }
+        .year-bar { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-width: 55px; }
+        .year-bar-fill { width: 100%; max-width: 45px; background: #2d6a4f; border-radius: 6px 6px 0 0; transition: height 0.3s; }
+        .year-label { margin-top: 8px; font-size: 11px; font-weight: 600; text-align: center; }
+        .bar { background: #e2ddd2; border-radius: 20px; height: 28px; margin: 6px 0; overflow: hidden; }
+        .bar-fill { height: 100%; border-radius: 20px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: bold; color: white; }
+        .tab-buttons { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #ddd; padding-bottom: 8px; }
+        .tab-btn { background: none; border: none; padding: 8px 20px; font-size: 16px; font-weight: 600; font-family: inherit; cursor: pointer; color: #666; border-radius: 30px; transition: all 0.2s; }
+        .tab-btn.active { background: #1b4332; color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        .message-card { background: #fef8ed; border-left: 5px solid #C9943A; margin-bottom: 16px; }
+        .message-card p { font-size: clamp(11px, 3vw, 14px); line-height: 1.6; margin-bottom: 8px; }
+        .message-card .greeting { font-weight: bold; color: #1b4332; margin-bottom: 10px; }
+        
+        .no-color { background: transparent; }
+        .total-row { background: #f0ede6; font-weight: bold; }
+        .total-row td { background: #f0ede6; border-bottom: none; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="report-header">
+        <h1><i class="fas fa-handshake"></i> ই ফ্রেন্ডস এসোসিয়েশন</h1>
+        <div class="subtitle">ফাইনাল রিপোর্ট — এপ্রিল ২০২৬</div>
+        <div class="address"><i class="fas fa-map-marker-alt"></i> মন্তলী রহমানিয়া ফাজিল ডিগ্রী মাদ্রাসা সংলগ্ন মাঠ, নাঙ্গলকোট, কুমিল্লা</div>
+        <div class="period"><i class="far fa-calendar-alt"></i> ২০২৩ – ২০২৬ অর্থবছর</div>
+    </div>
+
+    <div class="card message-card">
+        <p class="greeting"><i class="fas fa-envelope"></i> প্রিয় সদস্যগণ,</p>
+        <p><i class="fas fa-hand-peace"></i> আসসালামু আলাইকুম। আশা করি, আপনারা সবাই ভালো আছেন। ই ফ্রেন্ডস এসোসিয়েশন-এর পক্ষ থেকে আপনাদের প্রতি কৃতজ্ঞতা প্রকাশ করছি। সমিতির স্বচ্ছতা ও সুষ্ঠু ব্যবস্থাপনার অঙ্গীকার রক্ষায় ২০২৩-২০২৬ অর্থবছরের সদস্যদের জমাকৃত অর্থ, লাভ এবং অ্যাকাউন্টে বর্তমান ব্যালেন্সের একটি বিস্তারিত বিবরণ উপস্থাপন করছি।</p>
+        <p><i class="fas fa-chart-line"></i> <strong>বিস্তারিত ব্যাখ্যা:</strong> ২০২৩-২০২৬ অর্থবছর পর্যন্ত সংগৃহীত সদস্যদের মোট শেয়ার ব্যবহার করে ই ফ্রেন্ডস এসোসিয়েশন-এর পক্ষ থেকে একটি গরু ক্রয় করা হয়। এই বিনিয়োগ থেকে মোট ৳৫,০০০ (পাঁচ হাজার টাকা) আয় অর্জিত হয়েছে। এবং স্বর্ণ থেকে নিম্নোক্ত হিসেবে আয় হয়েছে। ই ফ্রেন্ডস এসোসিয়েশন-এর সংঘস্মারক ও গঠনতন্ত্রের ৬.৭ এবং ৬.৮ ধারা অনুযায়ী, অর্জিত লভ্যাংশ সদস্যদের শেয়ার অনুসারে বণ্টন করা হয়েছে। এর অর্থ হলো, যিনি যত টাকা শেয়ার হিসেবে বিনিয়োগ করেছেন, তিনি সেই অনুপাতে লাভ পেয়েছেন।</p>
+    </div>
+
+    <div class="gold-input-area no-print">
+        <label><i class="fas fa-gem"></i> ১ ভরি স্বর্ণের দাম (৳)</label>
+        <input type="number" id="goldPriceInput" value="207000" step="1000">
+        <button id="updateBtn"><i class="fas fa-calculator"></i> হিসাব করুন</button>
+    </div>
+
+    <div class="tab-buttons no-print">
+        <button class="tab-btn active" data-tab="tab1">📊 সমিতির হিসেব নিকেশ</button>
+        <button class="tab-btn" data-tab="tab2">📋 সদস্য স্টেটমেন্ট</button>
+    </div>
+
+    <div id="mainReport"></div>
+    <div class="report-footer no-print"><i class="fas fa-chart-line"></i> ই ফ্রেন্ডস এসোসিয়েশন — স্বচ্ছতা ও অংশীদারিত্বের প্রতিশ্রুতি <br><i class="far fa-copyright"></i> ২০২৬ — সর্বস্বত্ব সংরক্ষিত</div>
+</div>
+
+<div id="explanationPopup" class="popup-modal"><div class="popup-content"><h4><i class="fas fa-gem"></i> স্বর্ণের লাভ গণনা পদ্ধতি</h4><p><strong>১. ওজন নির্ধারণ (পয়েন্ট এককে):</strong><br>১ ভরি = ৯৬০ পয়েন্ট, ১ আনা = ৬০ পয়েন্ট, ১ রতি = ১০ পয়েন্ট<br>মোট পয়েন্ট = (ভরি×৯৬০)+(আনা×৬০)+(রতি×১০)+পয়েন্ট</p><p><strong>২. বর্তমান মূল্য নির্ণয়:</strong><br>বর্তমান মূল্য = মোট পয়েন্ট × (১ ভরির দাম ÷ ৯৬০)</p><p><strong>৩. লাভ/লোকসান:</strong><br>লাভ = বর্তমান মূল্য − ক্রয়মূল্য</p><p><strong>৪. মোট স্বর্ণ লাভ = তিনটি লেনদেনের লাভের যোগফল</strong></p><p><strong>৫. মোট লাভ = স্বর্ণ লাভ + গরু লাভ (৫,০০০ টাকা)</strong></p><p><strong>৬. প্রতি শেয়ারে লাভ = মোট লাভ ÷ ৬০৮</strong></p><div id="popupCalcDemo" style="background:#f0f4f0; border-radius:12px; padding:10px; margin-top:10px; font-size:12px;"></div><button class="popup-close" onclick="closePopup()"><i class="fas fa-check"></i> বুঝলাম</button></div></div>
+<div id="weightPopup" class="popup-modal"><div class="popup-content" id="weightPopupContent"></div></div>
+
+<script>
+    function toPoints(vori, ana, ruti, point) { return (vori * 960) + (ana * 60) + (ruti * 10) + point; }
+    const goldDealsRaw = [
+        { date: "১৫ এপ্রিল ২০২৫", vori: 1, ana: 11, ruti: 4, point: 9, cost: 239300 },
+        { date: "৪ সেপ্টেম্বর ২০২৫", vori: 0, ana: 2, ruti: 0, point: 0, cost: 18850 },
+        { date: "১২ অক্টোবর ২০২৫", vori: 0, ana: 11, ruti: 2, point: 4, cost: 127700 }
+    ];
+    const monthlyDetails = {
+        "ফিরোজ": { "2023":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2024":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2025":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:1,জুন:0,জুলাই:0,আগস্ট:0,সেপ্ট:0,অক্টো:0,নভে:0,ডিসে:0}, "2026":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0} },
+        "মেহেদী": { "2023":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2024":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:1,জুন:0,জুলাই:0,আগস্ট:0,সেপ্ট:0,অক্টো:0,নভে:0,ডিসে:0}, "2025":{}, "2026":{} },
+        "ইসমাইল": { "2023":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2024":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2025":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2026":{} },
+        "মোমিন": { "2023":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2024":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2025":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2026":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1} },
+        "মনির": { "2023":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2024":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:2,জুন:2,জুলাই:2,আগস্ট:2,সেপ্ট:2,অক্টো:2,নভে:2,ডিসে:2}, "2025":{জানু:2,ফেব্রু:2,মার্চ:2,এপ্রিল:2,মে:2,জুন:2,জুলাই:2,আগস্ট:2,সেপ্ট:2,অক্টো:2,নভে:2,ডিসে:2}, "2026":{জানু:2,ফেব্রু:2,মার্চ:2,এপ্রিল:2} },
+        "আব্দুল হান্নান": { "2023":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2024":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2025":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:1,জুন:0,জুলাই:0,আগস্ট:0,সেপ্ট:0,অক্টো:0,নভে:0,ডিসে:0}, "2026":{} },
+        "কাদের": { "2023":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2024":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2025":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2026":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1} },
+        "ওবায়েদুল": { "2023":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0,মে:5,জুন:5,জুলাই:5,আগস্ট:5,সেপ্ট:5,অক্টো:5,নভে:5,ডিসে:5}, "2024":{জানু:5,ফেব্রু:5,মার্চ:5,এপ্রিল:5,মে:8,জুন:8,জুলাই:8,আগস্ট:8,সেপ্ট:8,অক্টো:8,নভে:8,ডিসে:8}, "2025":{জানু:8,ফেব্রু:8,মার্চ:8,এপ্রিল:8,মে:8,জুন:8,জুলাই:8,আগস্ট:8,সেপ্ট:8,অক্টো:8,নভে:8,ডিসে:8}, "2026":{জানু:8,ফেব্রু:8,মার্চ:8,এপ্রিল:8} },
+        "মিরাজ": { "2023":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2024":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2025":{জানু:3,ফেব্রু:3,মার্চ:3,এপ্রিল:3,মে:3,জুন:3,জুলাই:3,আগস্ট:3,সেপ্ট:3,অক্টো:3,নভে:3,ডিসে:3}, "2026":{জানু:3,ফেব্রু:3,মার্চ:3,এপ্রিল:3} },
+        "কাউসার হামিদি": { "2023":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2024":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:1,নভে:1,ডিসে:1}, "2025":{জানু:1,ফেব্রু:1,মার্চ:1,এপ্রিল:1,মে:1,জুন:1,জুলাই:1,আগস্ট:1,সেপ্ট:1,অক্টো:0,নভে:0,ডিসে:0}, "2026":{} },
+        "নিজাম": { "2023":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0,মে:2,জুন:2,জুলাই:2,আগস্ট:2,সেপ্ট:2,অক্টো:2,নভে:2,ডিসে:2}, "2024":{জানু:2,ফেব্রু:2,মার্চ:2,এপ্রিল:2,মে:0,জুন:0,জুলাই:0,আগস্ট:0,সেপ্ট:0,অক্টো:0,নভে:0,ডিসে:0}, "2025":{}, "2026":{} },
+        "রাজু": { "2023":{জানু:0,ফেব্রু:0,মার্চ:0,এপ্রিল:0,মে:2,জুন:2,জুলাই:2,আগস্ট:2,সেপ্ট:0,অক্টো:0,নভে:0,ডিসে:0}, "2024":{}, "2025":{}, "2026":{} }
+    };
+    const membersRaw = [
+        { name: "ফিরোজ", status: "leave", shares: 25 }, { name: "মেহেদী", status: "stay", shares: 13 },
+        { name: "ইসমাইল", status: "leave", shares: 32 }, { name: "মোমিন", status: "stay", shares: 36 },
+        { name: "মনির", status: "stay", shares: 60 }, { name: "আব্দুল হান্নান", status: "leave", shares: 25 },
+        { name: "কাদের", status: "stay", shares: 36 }, { name: "ওবায়েদুল", status: "stay", shares: 252 },
+        { name: "মিরাজ", status: "stay", shares: 68 }, { name: "কাউসার হামিদি", status: "leave", shares: 29 },
+        { name: "নিজাম", status: "stay", shares: 24 }, { name: "রাজু", status: "leave", shares: 8 }
+    ];
+    const TOTAL_SHARES = 608; const COW_PROFIT = 5000;
+
+    function calculateGoldProfit(pricePerVori) {
+        const pointValue = pricePerVori / 960;
+        let total = 0;
+        const details = goldDealsRaw.map(d => {
+            const pts = toPoints(d.vori, d.ana, d.ruti, d.point);
+            const cur = pts * pointValue;
+            const profit = cur - d.cost;
+            total += profit;
+            return { ...d, points: pts, weightVori: pts/960, currentValue: cur, profit };
+        });
+        return { details, totalGoldProfit: total, pointValue };
+    }
+    function computeAll(price) {
+        const gold = calculateGoldProfit(price);
+        const totalProfit = gold.totalGoldProfit + COW_PROFIT;
+        const profitPerShare = totalProfit / TOTAL_SHARES;
+        let members = membersRaw.map(m => {
+            const deposit = m.shares * 1000;
+            const profitAmount = m.shares * profitPerShare;
+            const totalReceivable = deposit + profitAmount;
+            const monthly = monthlyDetails[m.name] || {};
+            return { ...m, deposit, profitAmount, totalReceivable, monthly };
+        });
+        const leaving = members.filter(m=>m.status==='leave');
+        const staying = members.filter(m=>m.status==='stay');
+        const leavingTotal = leaving.reduce((s,m)=>s+m.totalReceivable,0);
+        const stayingTotal = staying.reduce((s,m)=>s+m.totalReceivable,0);
+        const leavingShares = leaving.reduce((s,m)=>s+m.shares,0);
+        const stayingShares = staying.reduce((s,m)=>s+m.shares,0);
+        const yearlyCollection = { 2023: 0, 2024: 0, 2025: 0, 2026: 0 };
+        members.forEach(m => {
+            for(let year of ['2023','2024','2025','2026']) {
+                let yearShares = 0;
+                if(m.monthly[year]) yearShares = Object.values(m.monthly[year]).reduce((a,b)=>a+b,0);
+                yearlyCollection[year] += yearShares * 1000;
+            }
+        });
+        const totalDeposit = TOTAL_SHARES * 1000;
+        const totalDistributable = members.reduce((s,m)=>s+m.totalReceivable,0);
+        const remainingAfterExit = totalDistributable - leavingTotal;
+        return { goldDetails: gold.details, totalGoldProfit: gold.totalGoldProfit, cowProfit: COW_PROFIT,
+            totalProfit, profitPerShare, members, totalDeposit, totalDistributable,
+            leaving: { list: leaving, total: leavingTotal, shares: leavingShares },
+            staying: { list: staying, total: stayingTotal, shares: stayingShares },
+            yearlyCollection, pointValue: gold.pointValue, remainingAfterExit, currentPrice: price };
+    }
+
+    let currentData = null;
+    function showExplanationPopup(price, data) {
+        document.getElementById('popupCalcDemo').innerHTML = `<p><strong>বর্তমান ইনপুট অনুযায়ী গণনা:</strong></p><p>১ ভরি দাম: <span class="profit-text">${price.toLocaleString()}</span> টাকা</p><p>১ পয়েন্টের দাম = ${(price/960).toFixed(2)} টাকা</p><p><strong>লেনদেন ১:</strong> ১ ভরি ১১ আনা ৪ রতি ৯ পয়েন্ট = ১,৬৬৯ পয়েন্ট → বর্তমান মূল্য = ${data.goldDetails[0].currentValue.toFixed(2)} টাকা, লাভ = ${data.goldDetails[0].profit.toFixed(2)} টাকা</p><p><strong>লেনদেন ২:</strong> ২ আনা = ১২০ পয়েন্ট → বর্তমান মূল্য = ${data.goldDetails[1].currentValue.toFixed(2)} টাকা, লাভ = ${data.goldDetails[1].profit.toFixed(2)} টাকা</p><p><strong>লেনদেন ৩:</strong> ১১ আনা ২ রতি ৪ পয়েন্ট = ৬৮৪ পয়েন্ট → বর্তমান মূল্য = ${data.goldDetails[2].currentValue.toFixed(2)} টাকা, লাভ = ${data.goldDetails[2].profit.toFixed(2)} টাকা</p><p><strong>মোট স্বর্ণ লাভ = ${data.totalGoldProfit.toFixed(2)} টাকা</strong><br>গরু লাভ = ৫,০০০ টাকা<br><strong>মোট লাভ = ${data.totalProfit.toFixed(2)} টাকা</strong></p>`;
+        document.getElementById('explanationPopup').style.display = 'flex';
+    }
+    function showWeightPopup(deal) {
+        const pts = toPoints(deal.vori, deal.ana, deal.ruti, deal.point);
+        document.getElementById('weightPopupContent').innerHTML = `<h4><i class="fas fa-gem"></i> ওজন বিবরণী</h4><p><strong>তারিখ:</strong> ${deal.date}</p><p><strong>ওজন:</strong> ${deal.vori} ভরি ${deal.ana} আনা ${deal.ruti} রতি ${deal.point} পয়েন্ট</p><p><strong>পয়েন্ট গণনা:</strong><br>(${deal.vori}×৯৬০) + (${deal.ana}×৬০) + (${deal.ruti}×১০) + ${deal.point} = ${pts} পয়েন্ট</p><p><strong>মোট পয়েন্ট:</strong> ${pts}</p><button class="popup-close" onclick="closeWeightPopup()">বন্ধ করুন</button>`;
+        document.getElementById('weightPopup').style.display = 'flex';
+    }
+    function closePopup() { document.getElementById('explanationPopup').style.display = 'none'; }
+    function closeWeightPopup() { document.getElementById('weightPopup').style.display = 'none'; }
+    window.onclick = function(e) { if(e.target === document.getElementById('explanationPopup')) closePopup(); if(e.target === document.getElementById('weightPopup')) closeWeightPopup(); };
+
+    function getHistoryTable(member) {
+        const months = ['জানু','ফেব্রু','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্ট','অক্টো','নভে','ডিসে'];
+        const years = ['2023', '2024', '2025', '2026'];
+        let tableHtml = `<div class="table-wrapper"><table class="history-table"><thead><tr style="background:#1b4332; color:white;"><th>বছর</th>${months.map(m=>`<th>${m}</th>`).join('')}<th>মোট</th></tr></thead><tbody>`;
+        for(let year of years) {
+            let total = 0;
+            let row = `<tr>`;
+            row += `<td style="font-weight:bold; background:#C9943A; color:white;">${year}</td>`;
+            for(let month of months) {
+                let val = (member.monthly[year] && member.monthly[year][month]) ? member.monthly[year][month] : 0;
+                total += val;
+                row += `<td class="${val > 0 ? 'highlight' : ''}">${val}</td>`;
+            }
+            row += `<td style="font-weight:bold; background:#C9943A; color:white;">${total}</td></tr>`;
+            tableHtml += row;
+        }
+        tableHtml += `</tbody></table></div>`;
+        return tableHtml;
+    }
+    function printStatement(member) {
+        const historyTable = getHistoryTable(member);
+        const today = new Date();
+        const formattedDate = `${today.getDate()} ${today.toLocaleString('bn', { month: 'long' })} ${today.getFullYear()}`;
+        const win = window.open('', '_blank', 'width=900,height=950');
+        win.document.write(`<html><head><title>${member.name} - ফাইনাল স্টেটমেন্ট</title><style>body{font-family:'Baloo Da 2',sans-serif;padding:20px;background:white;}.stmt{max-width:900px;margin:auto;border:1px solid #ddd;padding:20px;border-radius:20px;}.header{text-align:center;margin-bottom:20px;}.footer{text-align:center;margin-top:20px;font-size:11px;color:#666;border-top:1px solid #ccc;padding-top:10px;}table{border-collapse:collapse;width:100%;margin:10px 0;}th,td{border:1px solid #ccc;padding:6px;text-align:center;}.print-date{text-align:right;font-size:11px;color:#555;margin-bottom:10px;}</style></head><body><div class="stmt"><div class="header"><h2>ই ফ্রেন্ডস এসোসিয়েশন</h2><p>মন্তলী রহমানিয়া ফাজিল ডিগ্রী মাদ্রাসা সংলগ্ন মাঠ, নাঙ্গলকোট, কুমিল্লা</p><p><strong>ফাইনাল স্টেটমেন্ট</strong></p></div><div class="print-date">প্রিন্ট তারিখ: ${formattedDate}</div><h3>নাম: ${member.name} | স্ট্যাটাস: ${member.status==='leave'?'যাচ্ছেন':'থাকছেন'}</h3><hr/><h3>মাসভিত্তিক শেয়ার জমার ইতিহাস (২০২৩-২০২৬)</h3>${historyTable}<h3>সারসংক্ষেপ</h3><p><strong>মোট শেয়ার:</strong> ${member.shares} টি</p><p><strong>মোট জমা:</strong> ${member.deposit.toLocaleString()} ৳</p><p><strong>লাভের অংশ:</strong> ${member.profitAmount.toFixed(2)} ৳</p><h2 style="color:#166534;">✅ সর্বমোট প্রাপ্য: ${member.totalReceivable.toLocaleString()} ৳</h2><div class="footer">ই ফ্রেন্ডস এসোসিয়েশন — স্বর্ণ ও গরু প্রকল্প বিতরণ<br/>মন্তলী রহমানিয়া ফাজিল ডিগ্রী মাদ্রাসা সংলগ্ন মাঠ, নাঙ্গলকোট, কুমিল্লা</div></div></body></html>`);
+        win.document.close(); win.print();
+    }
+    function render() {
+        const price = parseFloat(document.getElementById('goldPriceInput').value);
+        if(isNaN(price)) return;
+        const data = computeAll(price);
+        currentData = data;
+        let membersList = [...data.members];
+        let sortKey='name', sortDir='asc';
+        const getSorted=(key)=>{
+            let s=[...membersList];
+            if(key==='name') s.sort((a,b)=>sortDir==='asc'?a.name.localeCompare(b.name):b.name.localeCompare(a.name));
+            else if(key==='shares') s.sort((a,b)=>sortDir==='asc'?a.shares-b.shares:b.shares-a.shares);
+            else if(key==='receivable') s.sort((a,b)=>sortDir==='asc'?a.totalReceivable-b.totalReceivable:b.totalReceivable-a.totalReceivable);
+            return s;
+        };
+        let sorted = getSorted(sortKey);
+
+        const totalPoints = data.goldDetails.reduce((s,g)=>s+g.points,0);
+        const totalWeightVori = data.goldDetails.reduce((s,g)=>s+g.weightVori,0);
+        const totalCost = data.goldDetails.reduce((s,g)=>s+g.cost,0);
+        const totalCurrent = data.goldDetails.reduce((s,g)=>s+g.currentValue,0);
+        const goldTableRows = data.goldDetails.map(g => `<tr><td style="text-align:left;">${g.date}</td><td style="text-align:left;">${g.vori} ভরি ${g.ana} আনা ${g.ruti} রতি ${g.point} পয়েন্ট <span class="info-icon" onclick="showWeightPopup({vori:${g.vori}, ana:${g.ana}, ruti:${g.ruti}, point:${g.point}, date:'${g.date}'})">🔍</span></td><td style="font-weight:bold;">${g.points}</td><td>${g.weightVori.toFixed(4)}</td><td>${g.cost.toLocaleString()} ৳</th><th class="no-color">${g.currentValue.toLocaleString()} ৳</th><td class="${g.profit >= 0 ? 'profit-text' : 'loss-text'}">${g.profit.toLocaleString()} ৳</th></tr>`).join('');
+
+        const leavingMembers = data.leaving.list;
+        const stayingMembers = data.staying.list;
+        
+        const leavingTableHtml = `
+            <div class="status-table-box status-leave-card">
+                <h4><i class="fas fa-plane-departure"></i> যাচ্ছেন (${leavingMembers.length} জন)</h4>
+                <div class="table-wrapper">
+                    <table style="min-width:200px;">
+                        <thead><tr><th>নাম</th><th>শেয়ার</th><th>লাভ (৳)</th><th>মোট প্রাপ্য (৳)</th></tr></thead>
+                        <tbody>
+                            ${leavingMembers.map(m => `<tr><td>${m.name}</td><td>${m.shares}</td><td>${m.profitAmount.toFixed(2)}</td><td>${m.totalReceivable.toLocaleString()}</td></tr>`).join('')}
+                            <tr class="total-row-status"><td><strong>মোট</strong></td><td><strong>${data.leaving.shares}</strong></td><td><strong>${data.leaving.list.reduce((s,m)=>s+m.profitAmount,0).toFixed(2)}</strong></td><td><strong>${data.leaving.total.toLocaleString()}</strong></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
+        
+        const stayingTableHtml = `
+            <div class="status-table-box status-stay-card">
+                <h4><i class="fas fa-home"></i> থাকছেন (${stayingMembers.length} জন)</h4>
+                <div class="table-wrapper">
+                    <table style="min-width:200px;">
+                        <thead><tr><th>নাম</th><th>শেয়ার</th><th>লাভ (৳)</th><th>মোট প্রাপ্য (৳)</th></tr></thead>
+                        <tbody>
+                            ${stayingMembers.map(m => `<tr><td>${m.name}</td><td>${m.shares}</td><td>${m.profitAmount.toFixed(2)}</td><td>${m.totalReceivable.toLocaleString()}</td></tr>`).join('')}
+                            <tr class="total-row-status"><td><strong>মোট</strong></td><td><strong>${data.staying.shares}</strong></td><td><strong>${data.staying.list.reduce((s,m)=>s+m.profitAmount,0).toFixed(2)}</strong></td><td><strong>${data.staying.total.toLocaleString()}</strong></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
+
+        const tab1Html = `
+        <div class="card"><h2><i class="fas fa-gem"></i> স্বর্ণ প্রজেক্ট — বিস্তারিত হিসেব <button class="explanation-btn no-print" onclick="showExplanationPopup(${price}, currentData)"><i class="fas fa-info-circle"></i> হিসেব পদ্ধতি বুঝুন</button></h2><div class="table-wrapper"><table><thead><tr><th>তারিখ</th><th>ওজন (ভরি-আনা-রতি-পয়েন্ট)</th><th>পয়েন্ট</th><th>ওজন (ভরি)</th><th>ক্রয়মূল্য (৳)</th><th>বর্তমান মূল্য (৳)</th><th>লাভ/লোকসান (৳)</th></tr></thead><tbody>${goldTableRows}</tbody><tfoot><tr class="total-row"><td colspan="2">সর্বমোট</th><th>${totalPoints}</th><th>${totalWeightVori.toFixed(4)}</th><th>${totalCost.toLocaleString()} ৳</th><th>${totalCurrent.toLocaleString()} ৳</th><td class="profit-text">${data.totalGoldProfit.toLocaleString()} ৳</th></tr></tfoot></table></div><div style="margin-top:12px; background:#FEF5ED; padding:12px; border-radius:16px;"><i class="fas fa-cow"></i> <strong>গরু প্রজেক্ট লাভ:</strong> +${data.cowProfit.toLocaleString()} ৳ <br><i class="fas fa-chart-simple"></i> <strong>মোট লাভ = ${data.totalGoldProfit.toLocaleString()} + ${data.cowProfit} = ${data.totalProfit.toLocaleString()} ৳</strong><br><i class="fas fa-share-alt"></i> <strong>প্রতি শেয়ারে লাভ:</strong> ${data.profitPerShare.toFixed(2)} ৳</div></div>
+        <div class="card"><h2><i class="fas fa-users"></i> সদস্য তালিকা (১২ জন)</h2><div class="sort-buttons no-print"><button class="sort-btn" data-sort="name"><i class="fas fa-sort-alpha-down"></i> নাম</button><button class="sort-btn" data-sort="shares"><i class="fas fa-chart-pie"></i> শেয়ার</button><button class="sort-btn" data-sort="receivable"><i class="fas fa-taka"></i> প্রাপ্য</button></div><div class="table-wrapper"><table><thead><tr><th>#</th><th>নাম</th><th>শেয়ার</th><th>জমা (৳)</th><th>লাভ (৳)</th><th>সর্বমোট (৳)</th><th>স্ট্যাটাস</th></tr></thead><tbody id="tableBody"></tbody></table></div></div>
+        <div class="card"><h2><i class="fas fa-chart-line"></i> বছরভিত্তিক টাকা সংগ্রহ (শেয়ার × ১০০০)</h2><div id="yearlyCollectionChart"></div></div>
+        <div class="card"><h2><i class="fas fa-info-circle"></i> সদস্য স্ট্যাটাস ও ফাইনাল নিষ্পত্তি</h2><div class="status-split-container">${leavingTableHtml}${stayingTableHtml}</div><div class="status-footer"><strong><i class="fas fa-chart-line"></i> যাওয়ার পর সমিতিতে অবশিষ্ট টাকা:</strong> ${data.remainingAfterExit.toLocaleString()} ৳</div></div>
+        <div class="card"><h2><i class="fas fa-chart-line"></i> প্রাপ্য অর্থের তুলনা (উলম্ব বার চার্ট)</h2><div id="receivableChart"></div></div>
+        <div class="card"><h2><i class="fas fa-coins"></i> টাকা কালেকশন ও অবশিষ্ট হিসেব</h2><div id="collectionSummary"></div></div>
+        <div class="card"><h2><i class="fas fa-file-alt"></i> সংঘস্মারক ও গঠনতন্ত্র</h2><div class="doc-links"><a href="mailto:e.friends.association@gmail.com"><i class="fas fa-envelope"></i> ইমেইল: e.friends.association@gmail.com</a><a href="https://docs.google.com/document/d/1PfViIRQOIrvmkLMc2En3x2yfLWQxqRxk5slQA-4B9SY/edit?usp=sharing" target="_blank"><i class="fas fa-link"></i> গঠনতন্ত্র ডকুমেন্ট দেখুন</a></div><p style="margin-top: 15px;"><i class="fas fa-handshake"></i> ই ফ্রেন্ডস এসোসিয়েশন — স্বচ্ছতা ও অংশীদারিত্বের প্রতিশ্রুতিতে বিশ্বাসী।</p></div>`;
+
+        const tab2Html = `<div class="card"><h2><i class="fas fa-id-card"></i> ইন্ডিভিজুয়াল স্টেটমেন্ট (মাসভিত্তিক জমাসহ)</h2><div id="statementsContainer"></div></div>`;
+
+        document.getElementById('mainReport').innerHTML = `<div class="tab-content active" id="tab1">${tab1Html}</div><div class="tab-content" id="tab2">${tab2Html}</div>`;
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+                document.getElementById(btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        const updateDynamicData = () => {
+            const totalShares = sorted.reduce((s,m)=>s+m.shares,0);
+            const totalDeposit = sorted.reduce((s,m)=>s+m.deposit,0);
+            const totalProfitAmount = sorted.reduce((s,m)=>s+m.profitAmount,0);
+            const totalReceivableSum = sorted.reduce((s,m)=>s+m.totalReceivable,0);
+            document.getElementById('tableBody').innerHTML = sorted.map((m,i)=>`<tr style="background:${m.status==='leave'?'#FFF5F5':'#F0FDF4'}"><td>${i+1}<td style="text-align:left;">${m.name}</td><td>${m.shares}</td><td>${m.deposit.toLocaleString()}</td><td>${m.profitAmount.toFixed(2)}<td style="font-weight:800;">${m.totalReceivable.toLocaleString()}</td><td><span style="background:${m.status==='leave'?'#FEE2E2':'#DCFCE7'};padding:2px 12px;border-radius:20px;">${m.status==='leave'?'যাচ্ছেন':'থাকছেন'}</span></td></tr>`).join('') + `<tr class="total-row"><td colspan="2" style="text-align:left; font-weight:bold;">মোট</th><th>${totalShares}</th><th>${totalDeposit.toLocaleString()} ৳</th><th>${totalProfitAmount.toFixed(2)} ৳</th><td style="font-weight:bold;">${totalReceivableSum.toLocaleString()} ৳</th><th></th></tr>`;
+            const maxYear = Math.max(...Object.values(data.yearlyCollection));
+            document.getElementById('yearlyCollectionChart').innerHTML = `<div class="yearly-chart">${Object.entries(data.yearlyCollection).map(([y,val]) => `<div class="year-bar"><div class="year-bar-fill" style="height: ${(val/maxYear)*180}px;"></div><div class="year-label">${y}<br>${(val/1000).toFixed(0)}k</div></div>`).join('')}</div>`;
+            const maxReceivable = Math.max(...membersList.map(m=>m.totalReceivable));
+            document.getElementById('receivableChart').innerHTML = `<div class="vertical-chart-wrapper"><div class="vertical-chart-container">${membersList.map(m => `<div class="vert-chart-item"><div class="vert-chart-value">${(m.totalReceivable/1000).toFixed(0)}k</div><div class="vert-chart-bar" style="height: ${(m.totalReceivable/maxReceivable)*180}px;"></div><div class="vert-chart-label">${m.name}</div></div>`).join('')}</div></div>`;
+            document.getElementById('collectionSummary').innerHTML = `<div class="stat-grid"><div class="stat-card"><div class="stat-label"><i class="fas fa-database"></i> মোট জমা</div><div class="stat-value">${data.totalDeposit.toLocaleString()} ৳</div></div><div class="stat-card"><div class="stat-label"><i class="fas fa-money-bill-wave"></i> মোট বিতরণ</div><div class="stat-value">${data.totalDistributable.toLocaleString()} ৳</div></div><div class="stat-card"><div class="stat-label"><i class="fas fa-chart-line"></i> নিট লাভ</div><div class="stat-value profit-text">${data.totalProfit.toLocaleString()} ৳</div></div></div>`;
+            document.getElementById('statementsContainer').innerHTML = sorted.map(m=>{
+                const historyTable = getHistoryTable(m);
+                return `<div class="member-statement"><div class="member-header"><strong><i class="fas fa-user"></i> ${m.name}</strong><button class="print-btn" onclick="window.printMember('${m.name}')"><i class="fas fa-print"></i> প্রিন্ট</button></div>
+                <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px; margin-bottom:10px;"><div><i class="fas fa-chart-pie"></i> শেয়ার: ${m.shares}</div><div><i class="fas fa-taka"></i> জমা: ${m.deposit.toLocaleString()} ৳</div><div><i class="fas fa-chart-line"></i> লাভ: ${m.profitAmount.toFixed(2)} ৳</div><div><i class="fas fa-hand-holding-usd"></i> প্রাপ্য: ${m.totalReceivable.toLocaleString()} ৳</div></div>
+                <details open><summary class="details-summary"><i class="fas fa-calendar-alt"></i> মাসভিত্তিক জমা (২০২৩-২০২৬)</summary>${historyTable}</details>
+                <div class="bar"><div class="bar-fill" style="width:${(m.totalReceivable/Math.max(...membersList.map(x=>x.totalReceivable)))*100}%; background:${m.status==='leave'?'#FCA5A5':'#2d6a4f'};">${Math.round((m.totalReceivable/Math.max(...membersList.map(x=>x.totalReceivable)))*100)}%</div></div></div>`;
+            }).join('');
+        };
+
+        window.printMember = (name) => { const m = currentData.members.find(x=>x.name===name); if(m) printStatement(m); };
+        document.querySelectorAll('.sort-btn').forEach(btn=>{btn.addEventListener('click',(e)=>{const s=btn.getAttribute('data-sort'); if(s==='name'){sortKey='name';sortDir=sortDir==='asc'?'desc':'asc';}else if(s==='shares'){sortKey='shares';sortDir=sortDir==='asc'?'desc':'asc';}else if(s==='receivable'){sortKey='receivable';sortDir=sortDir==='asc'?'desc':'asc';}sorted=getSorted(sortKey);updateDynamicData();});});
+        updateDynamicData();
+    }
+    document.getElementById('updateBtn').addEventListener('click',()=>render());
+    document.getElementById('goldPriceInput').addEventListener('change',()=>render());
+    render();
+</script>
+</body>
+</html>
